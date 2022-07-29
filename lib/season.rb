@@ -41,9 +41,9 @@ class Season
     shots_by_teams = Hash.new(1)
 
     @games_in_season.each do |game|
-      shots_by_teams[game.teams_game_stats[:home_team][:team_name]] *= game.teams_game_stats[:home_team][:shots].to_f / game.teams_game_stats[:home_team][:goals]
+      shots_by_teams[game.teams_game_stats[:home_team][:team_name]] += game.teams_game_stats[:home_team][:shots].to_f / game.teams_game_stats[:home_team][:goals]
 
-      shots_by_teams[game.teams_game_stats[:away_team][:team_name]] *= game.teams_game_stats[:away_team][:shots].to_f / game.teams_game_stats[:away_team][:goals]
+      shots_by_teams[game.teams_game_stats[:away_team][:team_name]] += game.teams_game_stats[:away_team][:shots].to_f / game.teams_game_stats[:away_team][:goals]
     end
     shots_by_teams
   end
