@@ -37,6 +37,7 @@ module LeagueStats
         end
       end
       team_info
+  end
 
   def average_win_percentage(team_id)
     total_win_percent = 0
@@ -48,7 +49,6 @@ module LeagueStats
       end
     end
     (total_win_percent / @seasons.length).round(2)
-
   end
 
 end

@@ -69,11 +69,11 @@ class Season
   def winningest_coach
     coach_percentages.max_by{|coach_name, percentage_wins| percentage_wins}.first
    end
- 
+
   def worst_coach
     coach_percentages.min_by{|coach_name, percentage_wins| percentage_wins}.first
   end
-  
+
   def self.generate_seasons(games)
     seasons_ids = games.map{|game| game.season}.uniq
     seasons_hash = {}
@@ -84,5 +84,5 @@ class Season
       seasons_hash[season_id] = Season.new(season_id, games_in_season)
       end
       seasons_hash
-  end 
+  end
 end
