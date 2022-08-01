@@ -40,7 +40,7 @@
     <li>Lowest scoring home team: <%= stat_tracker.lowest_scoring_home_team %></li>
 
     <h2>Team Statistics</h2>
-      
+
       <table border="1">
       <tr><th colspan="5">Teams Info</th><th colspan="6">Team Stats</th></tr>
       <tr>
@@ -79,5 +79,11 @@
 
 
     <h2>Season Statistics</h2>
+      <li>Winningest coach :<%= stat_tracker.winningest_coach(20122013) %></li>
+      <li>Worst coach :<%= stat_tracker.worst_coach(20122013) %></li>
+      <li>Most accurate team :<%= stat_tracker.most_accurate_team(20122013) %></li>
+      <li>Least accurate team :<%= stat_tracker.least_accurate_team(20122013) %></li>
+      <li>Most tackles :<%= stat_tracker.most_tackles(20122013) %></li>
+      <li>Fewest tackles :<%= stat_tracker.fewest_tackles(20122013) %></li>
   </body>
 </html>
