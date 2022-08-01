@@ -61,4 +61,7 @@ RSpec.describe Team do
     expect(@team.total_goals_per_side(:away_team)).to eq 10
   end
 
+  it 'can return an array of all the home and away goals' do
+    expect(@team.home_and_away_goals).to eq([2, 2, 1, 2, 1, 0, 5, 0])
+  end
 end
