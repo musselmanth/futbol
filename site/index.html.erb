@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <title>Futbol Statistics</title>
+    <style>
+      td, th {padding:3px;}
+    </style>
+  </head>
+
+  <body>
+    <h1>Futbol</h1>
+    <h2>Game Statistics</h2>
+    <h4>Shown below are all the statistics per game that were calculated in the Futbol project.</h4>
+    <ul>
+      <li>Highest total score: <%= stat_tracker.highest_total_score %></li>
+      &nbsp; &nbsp; <li>Lowest total score: <%= stat_tracker.lowest_total_score %></li>
+      &nbsp; &nbsp; <li>Percentage of home team wins: <%= stat_tracker.percentage_home_wins * 100 %>%</li>
+      &nbsp; &nbsp; <li>Percentage of visitor wins: <%= stat_tracker.percentage_visitor_wins * 100 %>%</li>
+      &nbsp; &nbsp; <li>Percentage of tie games: <%= stat_tracker.percentage_ties * 100 %>%</li>
+      &nbsp; &nbsp; <li>The count of games by season: </li>
+      <ul>
+        <% stat_tracker.count_of_games_by_season.each do |season, count| %>
+        <li><%= season %>: <%= count %></li>
+        <% end %>
+      </ul>
+      &nbsp; &nbsp; <li>Average goals per game: <%= stat_tracker.average_goals_per_game %></li>
+      &nbsp; &nbsp; <li>Average goals by season: </li>
+      <ul>
+        <% stat_tracker.average_goals_by_season.each do |season, goal| %>
+        <li><%= season %>: <%= goal %></li>
+        <% end %>
+      </ul>
+    </ul>
+    <h2>League Statistics</h2>
+    <h4>Shown below are all the statistics for each league that were calculated in the Futbol project.</h4>
+    <ul>
+    &nbsp; &nbsp; <li>Count of teams: <%= stat_tracker.count_of_teams %></li>
+    &nbsp; &nbsp; <li>Best offense: <%= stat_tracker.best_offense %></li>
+    &nbsp; &nbsp; <li>Worst offense: <%= stat_tracker.worst_offense %></li>
+    &nbsp; &nbsp; <li>Highest scoring visitor: <%= stat_tracker.highest_scoring_visitor %></li>
+    &nbsp; &nbsp; <li>Highest scoring home team: <%= stat_tracker.highest_scoring_home_team %></li>
+    &nbsp; &nbsp; <li>Lowest scoring visitor: <%= stat_tracker.lowest_scoring_visitor %></li>
+    &nbsp; &nbsp; <li>Lowest scoring home team: <%= stat_tracker.lowest_scoring_home_team %></li>
+    </ul>
+    <h2>Team Statistics</h2>
+    <h4>In this section a table was created in order to show the information and statistics of each team in league.</h4> 
+      <table style="margin:25px" border="1">
+      <tr><th colspan="5">Teams Info</th><th colspan="6">Team Stats</th></tr>
+      <tr>
+        <th>Team ID</th>
+        <th>Team Name</th>
+        <th>Franchise ID</th>
+        <th>Abbreviation</th>
+        <th>Link</th>
+        <th>Best Season</th>
+        <th>Worst Season</th>
+        <th>Most Goals Scored</th>
+        <th>Fewest Goals Scored</th>
+        <th>Favorite Opponent</th>
+        <th>Rival</th>
+      </tr>
+
+      <% stat_tracker.teams.values.each do |team| %>
+        <tr>
+          <td><%= team.team_info["team_id"] %></td>
+          <td><%= team.team_info["team_name"] %></td>
+          <td><%= team.team_info["franchise_id"] %></td>
+          <td><%= team.team_info["abbreviation"] %></td>
+          <td><%= team.team_info["link"] %></td>
+          <% best_season = team.best_season %>
+          <td><%= best_season[0..3] + " / " + best_season[4..7] %></td>
+          <% worst_season = team.worst_season%>
+          <td><%= worst_season[0..3] + " / " + worst_season[4..7] %></td>
+          <td><%= team.most_goals_scored %></td>
+          <td><%= team.fewest_goals_scored %></td>
+          <td><%= team.favorite_opponent %></td>
+          <td><%= team.rival %></td>
+        </tr>
+      <% end %>
+      </table>
+
+
+
+    <h2>Season Statistics</h2>
+      <li>Winningest coach <%= stat_tracker.winningest_coach(20122013) %></li>
+      <li>Worst coach <%= stat_tracker.worst_coach(20122013) %></li>
+      <li>Most accurate team <%= stat_tracker.most_accurate_team(20122013) %></li>
+      <li>Least accurate team <%= stat_tracker.least_accurate_team(20122013) %></li>
+      <li>Most tackles <%= stat_tracker.most_tackles(20122013) %></li>
+      <li>Fewest tackles <%= stat_tracker.fewest_tackles(20122013) %></li>
+  </body>
+</html>
