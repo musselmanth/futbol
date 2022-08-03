@@ -13,17 +13,17 @@ class StatTracker
               :teams,
               :seasons
 
-  def initialize(games, teams, game_teams)
-    @teams = Team.generate_teams(teams)
-    @games = Game.generate_games(games, game_teams, @teams)
-    @seasons = Season.generate_seasons(@games)
+  def initialize(games, teams, seasons)
+    @teams = teams
+    @games = games
+    @seasons = seasons
   end
 
   def self.from_csv(locations)
-    games = CSV.table(locations[:games], converters: :all)
-    teams = CSV.table(locations[:teams], converters: :all)
-    game_teams = CSV.table(locations[:game_teams], converters: :all)
-    StatTracker.new(games, teams, game_teams)
+    teams = Team.generate_teams(locations[:teams])
+    games = Game.generate_games(locations[:games], locations[:game_teams], teams)
+    seasons = Season.generate_seasons(games)
+    StatTracker.new(games, teams, seasons)
   end
 
   def most_accurate_team(season) @seasons[season.to_i].most_accurate_team(season) end
