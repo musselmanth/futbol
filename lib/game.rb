@@ -9,7 +9,7 @@ class Game
     @game_id = game_csv_row[:game_id]
     @season = game_csv_row[:season]
     @type = game_csv_row[:type]
-    @teams_game_stats = {home_team: nil, away_team: nil} #generate_team_stats(game_teams_csv_rows, home_name, away_name)
+    @teams_game_stats = {home_team: nil, away_team: nil}
   end
 
   def generate_team_stats(data, home_or_away, team_name)
@@ -51,26 +51,13 @@ class Game
     team_id == @teams_game_stats[:home_team][:team_id] || team_id == @teams_game_stats[:away_team][:team_id]
   end
 
-  # def self.generate_games(games_csv, game_teams_csv, teams)
-  #   game_array = []
-  #   games_csv.each do |game|
-  #     game_teams_csv_rows = game_teams_csv.find_all do |game_team|
-  #       game_team[:game_id] == game[:game_id]
-  #     end
-  #     home_team = teams.values.find{ |team| team.team_id == game[:home_team_id] }
-  #     away_team = teams.values.find{ |team| team.team_id == game[:away_team_id] }
-  #     this_game = Game.new(game, game_teams_csv_rows, home_team.team_name, away_team.team_name)
-  #     home_team.games_participated_in << this_game
-  #     away_team.games_participated_in << this_game
-  #     game_array << this_game
-  #   end
-  #   game_array
-  # end
-
   def self.generate_games(games_csv, game_teams_csv, teams)
     game_hash = Hash.new
     games_csv.each do |game|
-      game_hash[game[:game_id]] = Game.new(game)
+      this_game = Game.new(game)
+      game_hash[game[:game_id]] = this_game
+      teams[game[:away_team_id]].games_participated_in << this_game
+      teams[game[:home_team_id]].games_participated_in << this_game
     end
     game_teams_csv.each do |game_team|
       home_or_away = "#{game_team[:hoa]}_team".to_sym
