@@ -51,15 +51,15 @@ class Game
     team_id == @teams_game_stats[:home_team][:team_id] || team_id == @teams_game_stats[:away_team][:team_id]
   end
 
-  def self.generate_games(games_csv, game_teams_csv, teams)
+  def self.generate_games(games_csv_loc, game_teams_csv_loc, teams)
     game_hash = Hash.new
-    games_csv.each do |game|
+    CSV.foreach(games_csv_loc, headers: true, converters: :numeric, header_converters: :symbol) do |game|
       this_game = Game.new(game)
       game_hash[game[:game_id]] = this_game
       teams[game[:away_team_id]].games_participated_in << this_game
       teams[game[:home_team_id]].games_participated_in << this_game
     end
-    game_teams_csv.each do |game_team|
+    CSV.foreach(game_teams_csv_loc, headers: true, converters: :numeric, header_converters: :symbol) do |game_team|
       home_or_away = "#{game_team[:hoa]}_team".to_sym
       team_name = teams[game_team[:team_id]].team_name
       game_hash[game_team[:game_id]].generate_team_stats(game_team, home_or_away, team_name)

@@ -117,9 +117,9 @@ class Team
     {"team_id" => @team_id.to_s, "franchise_id" => @franchise_id.to_s, "team_name" => @team_name, "abbreviation" => @abbreviation, "link" => @link}
   end
 
-  def self.generate_teams(team_csv)
+  def self.generate_teams(teams_csv_loc)
     teams_hash = {}
-    team_csv.each do |team|
+    CSV.foreach(teams_csv_loc, headers: true, header_converters: :symbol, converters: :numeric) do |team|
       teams_hash[team[:team_id]] = Team.new(team)
     end
     teams_hash
